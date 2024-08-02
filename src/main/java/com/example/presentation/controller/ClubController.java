@@ -1,6 +1,5 @@
 package com.example.presentation.controller;
 
-import com.example.presentation.dto.AuthResponse;
 import com.example.presentation.dto.ClubDTO;
 import com.example.service.interfaces.IClubService;
 import io.swagger.v3.oas.annotations.Operation;

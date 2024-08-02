@@ -1,0 +1,44 @@
+#Se coloca version de docker compose
+version: "3.9"
+#Contenedores a levantar
+services:
+  spring-api-image:
+    #Nombre del contenedor
+    image: spring-api-image
+    container_name: spring-api-docker
+    #Buildear la imagen de contenedor cada vez que se levante docker-compose up
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    #Red especificada abajo
+    networks:
+      - spring-network
+    #Nos aseguramos de que el docker espere al docker de mysql para levantar el servicio
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql
+    #Nombre del contenedor usado en la URL de spring para la conexion
+    container_name: mysql_java_docker
+    environment:
+      MYSQL_ROOT_PASSWORD: 1998
+      MYSQL_DATABASE: dockerDB
+      MYSQL_USER: newUser
+      MYSQL_PASSWORD: 150919
+    ports:
+      - "3307:3306"
+    networks:
+      - spring-network
+    #Se debe indicar la ruta a guardar en el docker
+    volumes:
+      - mysql-volume:/var/lib/mysql
+#Red de los contenedores
+networks:
+  spring-network:
+#Persistencia de data en volumen
+volumes:
+  mysql-volume:
+
